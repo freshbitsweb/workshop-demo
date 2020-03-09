@@ -10,32 +10,62 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Register Player</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Register</h1>
                             </div>
 
                             <form class="user" method="POST" action="{{ route('register') }}">
                                 @csrf
 
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" placeholder="First Name">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" placeholder="Last Name">
-                                    </div>
+                                <div class="form-group">
+                                    <input type="text"
+                                        class="form-control form-control-user"
+                                        name="name"
+                                        required
+                                        placeholder="Name"
+                                    >
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" placeholder="Email Address">
+                                    <input type="email"
+                                        class="form-control form-control-user"
+                                        name="email"
+                                        required
+                                        placeholder="Email Address"
+                                    >
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user" placeholder="Password">
+                                        <input type="password"
+                                            class="form-control form-control-user"
+                                            name="password"
+                                            required
+                                            placeholder="Password"
+                                        >
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
 
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user" placeholder="Repeat Password">
+                                        <input type="password"
+                                            class="form-control form-control-user"
+                                            name="password_confirmation"
+                                            required
+                                            placeholder="Repeat Password"
+                                        >
                                     </div>
                                 </div>
 
@@ -47,7 +77,7 @@
                             <hr>
 
                             <div class="text-center">
-                                <a class="small" href="{{ route('logins') }}">Already have an account? Login!</a>
+                                <a class="small" href="{{ route('home') }}">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>

@@ -17,16 +17,42 @@
                                     @csrf
 
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" placeholder="Enter Email Address...">
+                                        <input type="email"
+                                            class="form-control form-control-user"
+                                            required
+                                            name="email"
+                                            placeholder="Enter Email Address..."
+                                        >
+                                        @error('email')
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" placeholder="Password">
+                                        <input type="password"
+                                            class="form-control form-control-user"
+                                            required
+                                            name="password"
+                                            placeholder="Password"
+                                        >
+                                        @error('password')
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
 
-                                    <a href="index.php" class="btn btn-primary btn-user btn-block">
-                                        Login
-                                    </a>
+                                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        {{ __('Login') }}
+                                    </button>
+
+                                    @if (Route::has('password.request'))
+                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                            {{ __('Forgot Your Password?') }}
+                                        </a>
+                                    @endif
                                 </form>
                             </div>
                         </div>

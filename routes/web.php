@@ -20,3 +20,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/insert', 'PlayerController@insert')->name('insert');
+Route::get('/store', 'PlayerController@store')->name('store');
+Route::get('/edit', 'PlayerController@edit')->name('edit');
+Route::get('/update', 'PlayerController@update')->name('update');
+Route::get('/delete', 'PlayerController@destroy')->name('delete');

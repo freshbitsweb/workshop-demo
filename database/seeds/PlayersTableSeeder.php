@@ -114,5 +114,21 @@ class PlayersTableSeeder extends Seeder
         $player->playing = '0';
         $player->avatar = 'bhuvneshwar-kumar.webp';
         $player->save();
+
+        $player = new App\Player();
+        $player->name = 'Viral Kohli';
+        $player->batting_average = '68';
+        $player->bowling_average = '50';
+        $player->playing = '0';
+        $player->avatar = 'virat-kohli.webp';
+        $player->save();
+
+        $player = new App\Player();
+        $player->name = 'MS Dhoni';
+        $player->batting_average = '48';
+        $player->bowling_average = '66';
+        $player->playing = '1';
+        $player->avatar = 'ms-dhoni.webp';
+        $player->save();
     }
 }

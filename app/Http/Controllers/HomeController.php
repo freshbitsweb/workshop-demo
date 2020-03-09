@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Player;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $players = player::select('id', 'name', 'batting_average', 'bowling_average', 'playing', 'avatar')->get();
+
+        return view('home', compact('players'));
     }
 }

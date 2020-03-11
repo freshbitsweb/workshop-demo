@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Player;
 use App\Http\Requests\PlayerRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PlayerController extends Controller
 {
@@ -66,9 +67,8 @@ class PlayerController extends Controller
         $validatedData = $request->validated();
 
         if ($request->hasFile('avatar')) {
-            if (file_exists('images/'. $player->avatar)) {
-                unlink('images/'. $player->avatar);
-            }
+
+            Storage::delete($player->avatar);
 
             $validatedData['avatar'] = $request->avatar->store('');
         }
@@ -88,14 +88,17 @@ class PlayerController extends Controller
      **/
     public function destroy(Player $player)
     {
-        if (file_exists('images/'. $player->avatar)) {
-            unlink('images/'. $player->avatar );
-        }
+        Storage::delete($player->avatar);
 
         $player->delete();
 
         return redirect()->route('home')
             ->with(['status' => 'success', 'message' => 'Player has been deleted'])
         ;
+    }
+
+    public function getFileName(string $fileName)
+    {
+        return Storage::download($fileName);
     }
 }

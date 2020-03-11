@@ -5,6 +5,7 @@
             <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
             <div class="col-lg-7">
                 <div class="p-5">
+                    @include('includes.errors')
                     <div class="text-center">
                         <h1 class="h4 text-gray-900 mb-4">{{ $method ? 'Edit Player' : 'Insert Player' }}</h1>
                     </div>
@@ -25,9 +26,6 @@
                                     required
                                     placeholder="First Name"
                                 >
-                                @error('name')
-                                    @include('includes.errors')
-                                @enderror
                             </div>
 
                             <div class="col-sm-6">
@@ -38,9 +36,6 @@
                                     required
                                     placeholder="Batting Average"
                                 >
-                                @error('batting_average')
-                                    @include('includes.errors')
-                                @enderror
                             </div>
                         </div>
 
@@ -52,9 +47,6 @@
                                 required
                                 placeholder="Bowling Average"
                             >
-                            @error('bowling_average')
-                                @include('includes.errors')
-                            @enderror
                         </div>
 
                         <div class="form-group row">
@@ -65,16 +57,10 @@
                                 <label>
                                     <input type="radio" name="playing" value="1" {{ ($player->playing=="1")? "checked" : "" }}> No
                                 </label>
-                                @error('playing')
-                                    @include('includes.errors')
-                                @enderror
                             </div>
 
                             <div class="col-sm-6">
                                 <input type="file" name="avatar" required accept="image/*">
-                                @error('avatar')
-                                    @include('includes.errors')
-                                @enderror
                             </div>
                         </div>
 

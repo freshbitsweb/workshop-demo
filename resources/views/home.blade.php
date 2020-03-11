@@ -22,7 +22,7 @@
 
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="dataTable">
                         <thead class="thead-dark">
                             <tr>
                                 <th>Id</th>
@@ -41,7 +41,7 @@
                                 <td>{{ $player->id }}</td>
                                 <td>{{ $player->name }}</td>
                                 <td>
-                                    <img src="{{ asset('images/' . $player->avatar) }}" width="50px" height="50px">
+                                    <img src="{{ route('file_name', ['fileName' => $player->avatar]) }}" width="50" height="50" />
                                 </td>
                                 <td>{{ $player->batting_average }}</td>
                                 <td>{{ $player->bowling_average }}</td>
@@ -52,8 +52,8 @@
                                         {{ 'No' }}
                                     @endif
                                 </td>
-                                <td>
-                                    <a href="{{ route('edit', ['player' => $player->id]) }}" class="btn btn-info btn-icon-split">
+                                <td class="form-inline">
+                                    <a href="{{ route('edit', ['player' => $player->id]) }}" class="btn btn-info btn-icon-split mr-2">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-edit"></i>
                                         </span>

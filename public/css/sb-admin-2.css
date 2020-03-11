@@ -11737,13 +11737,13 @@
  }
 
  .bg-login-image {
-    background: url('../img/login.jpeg');
+    background: url('../photos/login.jpeg');
     background-position: center;
     background-size: cover;
  }
 
  .bg-register-image {
-     background: url('../img/register.jpeg');
+     background: url('../photos/register.jpeg');
      background-position: center;
      background-size: cover
  }

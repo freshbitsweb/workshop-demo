@@ -7,13 +7,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title') {{ config('app.name') }}</title>
 
-    <!-- Styles -->
     <link href="/css/sb-admin-2.css" rel="stylesheet">
     <link href="/css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
     <link href="/css/alertify.min.css" rel="stylesheet">
     <link href="/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/photos/favicon-32x32.png" type="image/x-icon">
 </head>
 <body class="bg-gradient-primary">
     <div id="app">

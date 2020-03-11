@@ -19,9 +19,10 @@
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <input type="text"
+                                    name="name"
                                     class="form-control form-control-user"
                                     value="{{ old('name', $player->name) }}"
-                                    name="name"
+                                    required
                                     placeholder="First Name"
                                 >
                                 @error('name')
@@ -31,9 +32,10 @@
 
                             <div class="col-sm-6">
                                 <input type="text"
-                                    class="form-control form-control-user"
                                     name="batting_average"
+                                    class="form-control form-control-user"
                                     value="{{ old('batting_average', $player->batting_average) }}"
+                                    required
                                     placeholder="Batting Average"
                                 >
                                 @error('batting_average')
@@ -44,9 +46,10 @@
 
                         <div class="form-group">
                             <input type="text"
-                                class="form-control form-control-user"
                                 name="bowling_average"
+                                class="form-control form-control-user"
                                 value="{{ old('bowling_average', $player->bowling_average) }}"
+                                required
                                 placeholder="Bowling Average"
                             >
                             @error('bowling_average')
@@ -68,7 +71,7 @@
                             </div>
 
                             <div class="col-sm-6">
-                                <input type="file" name="avatar" accept="image/*">
+                                <input type="file" name="avatar" required accept="image/*">
                                 @error('avatar')
                                     @include('includes.errors')
                                 @enderror

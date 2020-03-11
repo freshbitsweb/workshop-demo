@@ -41,7 +41,7 @@
                                 <td>{{ $player->id }}</td>
                                 <td>{{ $player->name }}</td>
                                 <td>
-                                    <img src="image/{{ $player->avatar }}" width="50px" height="50px">
+                                    <img src="{{ asset('images/' . $player->avatar) }}" width="50px" height="50px">
                                 </td>
                                 <td>{{ $player->batting_average }}</td>
                                 <td>{{ $player->bowling_average }}</td>

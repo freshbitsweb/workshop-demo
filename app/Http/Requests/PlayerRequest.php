@@ -25,12 +25,23 @@ class PlayerRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|string',
-            'batting_average' => 'required|numeric',
-            'bowling_average' => 'required|numeric',
-            'playing' => 'required|string',
-            'avatar' => 'required|image',
-        ];
+        if (Route::currentRouteName() == 'store') {
+            return [
+                'name' => 'required|string',
+                'batting_average' => 'required|numeric',
+                'bowling_average' => 'required|numeric',
+                'playing' => 'required|string',
+                'avatar' => 'required|image',
+            ];
+        }
+
+        if (Route::currentRouteName() == 'update') {
+            return [
+                'name' => 'required|string',
+                'batting_average' => 'required|numeric',
+                'bowling_average' => 'required|numeric',
+                'playing' => 'required|string',
+            ];
+        }
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Player;
 use App\Http\Requests\PlayerRequest;
+use App\Player;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -59,6 +59,7 @@ class PlayerController extends Controller
     /**
      * Update specific player.
      *
+     * @param \App\Http\Requests\PlayerRequest $request
      * @param \App\Player $player
      * @return \Illuminate\Http\RedirectResponse
      **/

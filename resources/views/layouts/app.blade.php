@@ -10,8 +10,10 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="css/sb-admin-2.css" rel="stylesheet">
-    <link href="css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/alertify.min.css" rel="stylesheet">
+    <link href="/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 <body class="bg-gradient-primary">
     <div id="app">
@@ -87,10 +89,11 @@
         </main>
     </div>
 
-    <script src="js/jquery.min.js" defer></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/sb-admin-2.js"></script>
-
-    @yield('scripts')
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/sb-admin-2.js"></script>
+    <script src="/js/alertify.min.js"></script>
+    @stack('scripts')
+    @include('includes.alertify')
 </body>
 </html>

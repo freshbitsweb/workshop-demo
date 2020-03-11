@@ -9,60 +9,80 @@
                         <h1 class="h4 text-gray-900 mb-4">{{ $method ? 'Edit Player' : 'Insert Player' }}</h1>
                     </div>
 
-                    <form class="user" action="{{ $route }}" method="POST">
+                    <form class="user" action="{{ $route }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         @if ($method)
                             @method($method)
                         @endif
+                        <input type="hidden" name="ids" value="{{ $player->id }}">
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <input type="text"
                                     class="form-control form-control-user"
                                     value="{{ old('name', $player->name) }}"
+                                    name="name"
                                     placeholder="First Name"
                                 >
+                                @error('name')
+                                    @include('includes.errors')
+                                @enderror
                             </div>
 
                             <div class="col-sm-6">
-                                <input type="number"
-                                class="form-control form-control-user"
-                                value="{{ old('name', $player->batting_average) }}"
-                                placeholder="Batting Average"
+                                <input type="text"
+                                    class="form-control form-control-user"
+                                    name="batting_average"
+                                    value="{{ old('batting_average', $player->batting_average) }}"
+                                    placeholder="Batting Average"
                                 >
+                                @error('batting_average')
+                                    @include('includes.errors')
+                                @enderror
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <input type="number"
-                            class="form-control form-control-user"
-                            value="{{ old('name', $player->bowling) }}"
-                            placeholder="Bowling Average"
+                            <input type="text"
+                                class="form-control form-control-user"
+                                name="bowling_average"
+                                value="{{ old('bowling_average', $player->bowling_average) }}"
+                                placeholder="Bowling Average"
                             >
+                            @error('bowling_average')
+                                @include('includes.errors')
+                            @enderror
                         </div>
 
                         <div class="form-group row">
                             <div class="col-sm-6 text-center">
                                 <label class="mr-2">
-                                    <input type="radio" name="playing" value="1"> Yes
+                                    <input type="radio" name="playing" value="0" {{ ($player->playing=="0")? "checked" : "" }}> Yes
                                 </label>
                                 <label>
-                                    <input type="radio" name="playing" value="0"> No
+                                    <input type="radio" name="playing" value="1" {{ ($player->playing=="1")? "checked" : "" }}> No
                                 </label>
+                                @error('playing')
+                                    @include('includes.errors')
+                                @enderror
                             </div>
 
                             <div class="col-sm-6">
-                                <input type="file" accept="image/*">
+                                <input type="file" name="avatar" accept="image/*">
+                                @error('avatar')
+                                    @include('includes.errors')
+                                @enderror
                             </div>
                         </div>
-                    </form>
-                    <button type="submit" name="insert" class="btn btn-primary btn-user btn-block">
-                        {{ $method ? 'Update' : 'Submit'  }}
-                    </button>
 
-                    <a href="{{ route('home') }}" class="btn btn-secondary btn-user btn-block">
-                        Cancel
-                    </a>
+                        <button type="submit" name="insert" class="btn btn-primary btn-user btn-block">
+                            {{ $method ? 'Update' : 'Submit'  }}
+                        </button>
+
+                        <a href="{{ route('home') }}" class="btn btn-secondary btn-user btn-block">
+                            Cancel
+                        </a>
+                    </form>
                 </div>
             </div>
         </div>

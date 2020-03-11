@@ -16,12 +16,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/insert', 'PlayerController@insert')->name('insert');
-Route::get('/store', 'PlayerController@store')->name('store');
-Route::get('/edit', 'PlayerController@edit')->name('edit');
-Route::get('/update', 'PlayerController@update')->name('update');
-Route::get('/delete', 'PlayerController@destroy')->name('delete');
+Route::post('/store', 'PlayerController@store')->name('store');
+Route::get('/edit/{player}', 'PlayerController@edit')->name('edit');
+Route::put('/update/{player}', 'PlayerController@update')->name('update');
+Route::delete('/delete/{player}', 'PlayerController@destroy')->name('delete');

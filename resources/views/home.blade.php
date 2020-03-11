@@ -41,7 +41,7 @@
                                 <td>{{ $player->id }}</td>
                                 <td>{{ $player->name }}</td>
                                 <td>
-                                    <img src="img/{{ $player->avatar }}" width="50px" height="50px">
+                                    <img src="image/{{ $player->avatar }}" width="50px" height="50px">
                                 </td>
                                 <td>{{ $player->batting_average }}</td>
                                 <td>{{ $player->bowling_average }}</td>
@@ -59,12 +59,18 @@
                                         </span>
                                         <span class="text">Edit</span>
                                     </a>
-                                    <a href="{{ route('delete', ['player' => $player->id]) }}" class="btn btn-danger btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-trash"></i>
-                                        </span>
-                                        <span class="text">Delete</span>
-                                    </a>
+
+                                    <form method="POST" action="{{ route('delete', ['player' => $player->id]) }}">
+
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-icon-split delete-button">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-trash"></i>
+                                            </span>
+                                            <span class="text">Delete</span>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -76,18 +82,26 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <script src="/js/dataTables.bootstrap4.min.js"></script>
     <script>
-        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
         $(document).ready(function() {
             $('#dataTable').DataTable( {
                 'columnDefs': [ {
-                    'targets': [1,5],
+                    'targets': [2,6],
                     'orderable': false,
                 }]
             });
         });
+
+        $(document).on('click', '.delete-button', function(e){
+            e.preventDefault();
+            var form = $(this).parent();
+
+            alertify.confirm('Confirm', 'Are you sure you want to delete this player?', function () {
+                form.submit();
+            }, function () {});
+        });
     </script>
-@endsection
+@endpush

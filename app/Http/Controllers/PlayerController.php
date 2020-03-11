@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Player;
+use Illuminate\Http\Request;
 
 class PlayerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Insert Player
      *
@@ -20,13 +25,35 @@ class PlayerController extends Controller
     /**
      * Store a new player.
      *
-     * @param
+     * @param \App\Http\Requests\PlayerRequest $request
      * @return \Illuminate\Http\RedirectResponse
      **/
-    public function store()
+    public function store(Request $request)
     {
+        $player = new player;
 
-        return redirect()->route('index')
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'batting_average' => 'required|numeric',
+            'bowling_average' => 'required|numeric',
+            'playing' => 'required|boolean',
+            'avatar' => 'required|image',
+        ]);
+
+        $player->name = $request->input('name');
+        $player->batting_average = $request->input('batting_average');
+        $player->bowling_average = $request->input('bowling_average');
+        $player->playing = $request->input('playing');
+        if ($request->hasFile("avatar")) {
+            $files = $request->file('avatar');
+            $name = rand(1, 100).$files->getclientOriginalName();
+            $files->move('image', $name);
+            $player->avatar=$name;
+        }
+
+        $player->save();
+
+        return redirect()->route('home')
             ->with(['status' => 'success', 'message' => 'Player added successfully'])
         ;
     }
@@ -48,11 +75,36 @@ class PlayerController extends Controller
      * @param \App\Player $player
      * @return \Illuminate\Http\RedirectResponse
      **/
-    public function update(Player $player)
+    public function update(Request $request, $id)
     {
-        $project->update($request->validated());
+        $player = player::find($id);
 
-        return redirect()->route('index')
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'batting_average' => 'required|numeric',
+            'bowling_average' => 'required|numeric',
+            'playing' => 'required|string',
+        ]);
+
+        $player->name = $request->input('name');
+        $player->batting_average = $request->input('batting_average');
+        $player->bowling_average = $request->input('bowling_average');
+        $player->playing = $request->input('playing');
+        if ($request->hasFile("avatar")) {
+            $photosFetch = player::where('id', $request->input('ids'))->first()->avatar;
+            if (file_exists('image/'.$photosFetch)) {
+                unlink('image/'.$photosFetch);
+            }
+
+            $files = $request->file('avatar');
+            $name = rand(1, 100).$files->getclientOriginalName();
+            $files->move('image', $name);
+            $player->avatar=$name;
+        }
+
+        $player->save();
+
+        return redirect()->route('home')
             ->with(['status' => 'success', 'message' => 'Player has been updated'])
         ;
     }
@@ -65,9 +117,13 @@ class PlayerController extends Controller
      **/
     public function destroy(Player $player)
     {
+        if (file_exists('image/'. $player->avatar)) {
+            unlink('image/'. $player->avatar );
+        }
+
         $player->delete();
 
-        return redirect()->route('index')
+        return redirect()->route('home')
             ->with(['status' => 'success', 'message' => 'Player has been deleted'])
         ;
     }

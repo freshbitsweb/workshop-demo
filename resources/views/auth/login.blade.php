@@ -9,6 +9,7 @@
                         <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                         <div class="col-lg-6">
                             <div class="p-5">
+                            @include('includes.errors')
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Login</h1>
                                 </div>
@@ -23,11 +24,6 @@
                                             name="email"
                                             placeholder="Enter Email Address..."
                                         >
-                                        @error('email')
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
 
                                     <div class="form-group">
@@ -37,22 +33,19 @@
                                             name="password"
                                             placeholder="Password"
                                         >
-                                        @error('password')
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
 
                                     <button type="submit" class="btn btn-primary btn-user btn-block">
                                         {{ __('Login') }}
                                     </button>
 
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
-                                        </a>
-                                    @endif
+                                    <div class="text-center">
+                                        @if (Route::has('password.request'))
+                                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                {{ __('Forgot Your Password?') }}
+                                            </a>
+                                        @endif
+                                    </div>
                                 </form>
                             </div>
                         </div>

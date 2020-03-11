@@ -9,6 +9,7 @@
                     <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
                     <div class="col-lg-7">
                         <div class="p-5">
+                            @include('includes.errors')
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Register</h1>
                             </div>
@@ -23,11 +24,6 @@
                                         required
                                         placeholder="Name"
                                     >
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
 
                                 <div class="form-group">
@@ -37,11 +33,6 @@
                                         required
                                         placeholder="Email Address"
                                     >
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
 
                                 <div class="form-group row">
@@ -52,11 +43,6 @@
                                             required
                                             placeholder="Password"
                                         >
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
 
                                     <div class="col-sm-6">

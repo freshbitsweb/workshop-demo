@@ -18,7 +18,7 @@ class CreatePlayersTable extends Migration
             $table->string('name', 50);
             $table->integer('batting_average');
             $table->integer('bowling_average');
-            $table->boolean('playing')->comment('0: Yes, 1: No');
+            $table->boolean('playing')->comment('0: No, 1: Yes');
             $table->string('avatar');
             $table->rememberToken();
             $table->timestamps();

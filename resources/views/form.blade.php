@@ -56,15 +56,15 @@
                                     <label class="mr-2">
                                         <input type="radio"
                                             name="playing"
-                                            value="0"
-                                            {{ ($player->playing == '0')? 'checked' : '' }}
+                                            value="1"
+                                            {{ ($player->playing == '1')? 'checked' : '' }}
                                         /> Yes
                                     </label>
                                     <label>
                                         <input type="radio"
                                             name="playing"
-                                            value="1"
-                                            {{ ($player->playing == '1')? 'checked' : '' }}
+                                            value="0"
+                                            {{ ($player->playing == '0')? 'checked' : '' }}
                                         /> No
                                     </label>
                                 </div>

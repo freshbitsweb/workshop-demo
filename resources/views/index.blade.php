@@ -46,7 +46,7 @@
                                     <td>{{ $player->batting_average }}</td>
                                     <td>{{ $player->bowling_average }}</td>
                                     <td>
-                                        @if ($player->playing === 0)
+                                        @if ($player->playing === 1)
                                             {{ 'Yes' }}
                                         @else
                                             {{ 'No' }}

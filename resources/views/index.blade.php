@@ -27,52 +27,53 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Name</th>
-                                <th>Photo</th>
+                                <th data-orderable="false">Photo</th>
                                 <th>Batting Average</th>
                                 <th>Bowling Average</th>
                                 <th>Playing 11</th>
-                                <th>Action</th>
+                                <th data-orderable="false">Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             @foreach($players as $player)
-                            <tr>
-                                <td>{{ $player->id }}</td>
-                                <td>{{ $player->name }}</td>
-                                <td>
-                                    <img src="{{ route('file_name', ['fileName' => $player->avatar]) }}" width="50" height="50" />
-                                </td>
-                                <td>{{ $player->batting_average }}</td>
-                                <td>{{ $player->bowling_average }}</td>
-                                <td>
-                                    @if ($player->playing == 0)
-                                        {{ 'Yes' }}
-                                    @else
-                                        {{ 'No' }}
-                                    @endif
-                                </td>
-                                <td class="form-inline">
-                                    <a href="{{ route('edit', ['player' => $player->id]) }}" class="btn btn-info btn-icon-split mr-2">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-edit"></i>
-                                        </span>
-                                        <span class="text">Edit</span>
-                                    </a>
+                                <tr>
+                                    <td>{{ $player->id }}</td>
+                                    <td>{{ $player->name }}</td>
+                                    <td>
+                                        <img src="{{ route('file_name', ['fileName' => $player->avatar]) }}" width="50" height="50" />
+                                    </td>
+                                    <td>{{ $player->batting_average }}</td>
+                                    <td>{{ $player->bowling_average }}</td>
+                                    <td>
+                                        @if ($player->playing === 0)
+                                            {{ 'Yes' }}
+                                        @else
+                                            {{ 'No' }}
+                                        @endif
+                                    </td>
 
-                                    <form method="POST" action="{{ route('delete', ['player' => $player->id]) }}">
-
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger btn-icon-split delete-button">
+                                    <td class="form-inline">
+                                        <a href="{{ route('edit', ['player' => $player->id]) }}" class="btn btn-info btn-icon-split mr-2">
                                             <span class="icon text-white-50">
-                                                <i class="fas fa-trash"></i>
+                                                <i class="fas fa-edit"></i>
                                             </span>
-                                            <span class="text">Delete</span>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
+                                            <span class="text">Edit</span>
+                                        </a>
+
+                                        <form method="POST" action="{{ route('delete', ['player' => $player->id]) }}">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button class="btn btn-danger btn-icon-split delete-button">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-trash"></i>
+                                                </span>
+                                                <span class="text">Delete</span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -87,12 +88,7 @@
     <script src="/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable( {
-                'columnDefs': [ {
-                    'targets': [2,6],
-                    'orderable': false,
-                }]
-            });
+            $('#dataTable').DataTable();
         });
 
         $(document).on('click', '.delete-button', function(e){

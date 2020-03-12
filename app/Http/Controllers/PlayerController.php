@@ -2,41 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PlayerRequest;
+use App\Http\Requests\SavePlayerRequest;
 use App\Player;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
 class PlayerController extends Controller
 {
-    public function __construct()
+    public function index(): Renderable
     {
-        $this->middleware('auth');
+        $players = Player::all();
+
+        return view('index', compact('players'));
     }
 
-    /**
-     * Insert Player
-     *
-     * @return \Illuminate\Http\Response
-     **/
-    public function insert()
-    {
-        return view('create');
-    }
-
-    /**
-     * Store a new player.
-     *
-     * @param \App\Http\Requests\PlayerRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     **/
-    public function store(PlayerRequest $request)
+    public function store(SavePlayerRequest $request): RedirectResponse
     {
         $validatedData = $request->validated();
-
-        if ($request->hasFile('avatar')) {
-            $validatedData['avatar'] = $request->avatar->store('');
-        }
+        $validatedData['avatar'] = $request->file('avatar')->store('');
 
         Player::create($validatedData);
 
@@ -45,33 +29,19 @@ class PlayerController extends Controller
         ;
     }
 
-    /**
-     * Display page to edit specific player.
-     *
-     * @param \App\Player $player
-     * @return \Illuminate\Http\Response
-     **/
-    public function edit(Player $player)
+    public function edit(Player $player): Renderable
     {
         return view('edit', compact('player'));
     }
 
-    /**
-     * Update specific player.
-     *
-     * @param \App\Http\Requests\PlayerRequest $request
-     * @param \App\Player $player
-     * @return \Illuminate\Http\RedirectResponse
-     **/
-    public function update(PlayerRequest $request, Player $player)
+    public function update(SavePlayerRequest $request, Player $player): RedirectResponse
     {
         $validatedData = $request->validated();
 
         if ($request->hasFile('avatar')) {
-            
             Storage::delete($player->avatar);
 
-            $validatedData['avatar'] = $request->avatar->store('');
+            $validatedData['avatar'] = $request->file('avatar')->store('');
         }
 
         $player->update($validatedData);
@@ -81,13 +51,7 @@ class PlayerController extends Controller
         ;
     }
 
-    /**
-     * Delete a specific player.
-     *
-     * @param \App\Player $player
-     * @return \Illuminate\Http\RedirectResponse
-     **/
-    public function destroy(Player $player)
+    public function destroy(Player $player): RedirectResponse
     {
         Storage::delete($player->avatar);
 

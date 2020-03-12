@@ -71,6 +71,9 @@
 
                                 <div class="col-sm-6">
                                     <input type="file" name="avatar" required accept="image/*">
+                                    @if ($player->id)
+                                        <img src="{{ route('file_name', ['fileName' => $player->avatar]) }}" width="50px" heigh="50px">
+                                    @endif
                                 </div>
                             </div>
 

@@ -45,7 +45,7 @@ class PlayerController extends Controller
         ;
     }
 
-     /**
+    /**
      * Display page to edit specific player.
      *
      * @param \App\Player $player
@@ -68,7 +68,7 @@ class PlayerController extends Controller
         $validatedData = $request->validated();
 
         if ($request->hasFile('avatar')) {
-
+            
             Storage::delete($player->avatar);
 
             $validatedData['avatar'] = $request->avatar->store('');

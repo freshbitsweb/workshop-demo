@@ -1,6 +1,8 @@
 <?php
 
+use App\Player;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class PlayersTableSeeder extends Seeder
 {
@@ -11,124 +13,32 @@ class PlayersTableSeeder extends Seeder
      */
     public function run()
     {
-        $player = new App\Player();
-        $player->name = 'Sachin Tendulkar';
-        $player->batting_average = '97';
-        $player->bowling_average = '63';
-        $player->playing = '1';
-        $player->avatar = 'sachin.webp';
-        $player->save();
+        if (($handle = fopen(database_path().'/seeds/players.csv', 'r')) !== false) {
+            $columns = ['name', 'batting_average', 'bowling_average', 'playing', 'avatar'];
+            $records = [];
 
-        $player = new App\Player();
-        $player->name = 'Zaheer Khan';
-        $player->batting_average = '48';
-        $player->bowling_average = '22';
-        $player->playing = '1';
-        $player->avatar = 'zaheer-khan.webp';
-        $player->save();
+            while (($data = fgetcsv($handle, 1000, ',')) !== false) {
+                $fields = [];
+                foreach ($columns as $key => $value) {
+                    $fields[$value] = $data[$key];
+                }
 
-        $player = new App\Player();
-        $player->name = 'Jasprit Bumrah';
-        $player->batting_average = '38';
-        $player->bowling_average = '33';
-        $player->playing = '0';
-        $player->avatar = 'jasprit-bumrah.webp';
-        $player->save();
+                Storage::put(
+                    $fields['avatar'],
+                    file_get_contents(database_path().'/seeds/player-avatars/'.$fields['avatar'])
+                );
 
-        $player = new App\Player();
-        $player->name = 'Cheteshwar Pujara';
-        $player->batting_average = '66';
-        $player->bowling_average = '15';
-        $player->playing = '1';
-        $player->avatar = 'cheteshwar-pujara.webp';
-        $player->save();
+                $records[] = array_merge($fields, [
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
 
-        $player = new App\Player();
-        $player->name = 'Rohit Sharma';
-        $player->batting_average = '85';
-        $player->bowling_average = '15';
-        $player->playing = '0';
-        $player->avatar = 'rohit-sharma.webp';
-        $player->save();
+            fclose($handle);
 
-        $player = new App\Player();
-        $player->name = 'Shikhar-Dhawan';
-        $player->batting_average = '76';
-        $player->bowling_average = '10';
-        $player->playing = '0';
-        $player->avatar = 'shikhar-dhawan.webp';
-        $player->save();
-
-        $player = new App\Player();
-        $player->name = 'Hardik Pandya';
-        $player->batting_average = '38';
-        $player->bowling_average = '25';
-        $player->playing = '0';
-        $player->avatar = 'hardik-pandya.webp';
-        $player->save();
-
-        $player = new App\Player();
-        $player->name = 'Ravindra Jadeja';
-        $player->batting_average = '49';
-        $player->bowling_average = '12';
-        $player->playing = '0';
-        $player->avatar = 'ravindra-jadeja.webp';
-        $player->save();
-
-        $player = new App\Player();
-        $player->name = 'Lokesh Rahul';
-        $player->batting_average = '66.78';
-        $player->bowling_average = '15.20';
-        $player->playing = '0';
-        $player->avatar = 'lokesh-rahul.webp';
-        $player->save();
-
-        $player = new App\Player();
-        $player->name = 'Mohammed Shami';
-        $player->batting_average = '25';
-        $player->bowling_average = '15';
-        $player->playing = '0';
-        $player->avatar = 'mohammed-shami.webp';
-        $player->save();
-
-        $player = new App\Player();
-        $player->name = 'Kuldeep Yadav';
-        $player->batting_average = '33.25';
-        $player->bowling_average = '18';
-        $player->playing = '1';
-        $player->avatar = 'kuldeep-yadav.webp';
-        $player->save();
-
-        $player = new App\Player();
-        $player->name = 'Yuzvendra Chahal';
-        $player->batting_average = '66.78';
-        $player->bowling_average = '25';
-        $player->playing = '0';
-        $player->avatar = 'yuzvendra-chahal.webp';
-        $player->save();
-
-        $player = new App\Player();
-        $player->name = 'Bhuvneshwar Kumar';
-        $player->batting_average = '12.25';
-        $player->bowling_average = '18';
-        $player->playing = '0';
-        $player->avatar = 'bhuvneshwar-kumar.webp';
-        $player->save();
-
-        $player = new App\Player();
-        $player->name = 'Viral Kohli';
-        $player->batting_average = '68';
-        $player->bowling_average = '50';
-        $player->playing = '0';
-        $player->avatar = 'virat-kohli.webp';
-        $player->save();
-
-        $player = new App\Player();
-        $player->name = 'MS Dhoni';
-        $player->batting_average = '48';
-        $player->bowling_average = '66';
-        $player->playing = '1';
-        $player->avatar = 'ms-dhoni.webp';
-        $player->save();
+            if (count($records)) {
+                Player::insert($records);
+            }
+        }
     }
 }

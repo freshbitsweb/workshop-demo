@@ -51,7 +51,8 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-sm-6 text-center">
+                            <div class="col-sm-6">
+                                <label class="h6 text-gray-900 mr-2">Playing:</label>
                                 <label class="mr-2">
                                     <input type="radio"
                                         name="playing"
